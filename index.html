@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Space Riders Arcade - Free Browser Games</title>
+<meta name="description" content="Space Riders Arcade: free retro pixel browser games. Star Squadron, SuperNova Showdown, Dream Strike and Station Strike. No wallet needed.">
+<meta name="theme-color" content="#08061a">
+<link rel="canonical" href="https://sanyziahj.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Space Riders Arcade">
+<meta property="og:title" content="Space Riders Arcade - Free Browser Games">
+<meta property="og:description" content="4 free retro pixel games. Tap and play in your browser. No wallet needed.">
+<meta property="og:url" content="https://sanyziahj.github.io/">
+<meta property="og:image" content="https://sanyziahj.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Space Riders Arcade - victory posters from four games">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Space Riders Arcade - Free Browser Games">
+<meta name="twitter:description" content="4 free retro pixel games. Tap and play in your browser. No wallet needed.">
+<meta name="twitter:image" content="https://sanyziahj.github.io/og.jpg">
+<link rel="preload" href="press-start-2p.woff" as="font" type="font/woff" crossorigin>
+<style>
+@font-face{font-family:"PS2P";src:url(press-start-2p.woff) format("woff");font-display:swap}
+:root{--bg:#08061a;--pink:#ff3cc8;--yel:#ffe650;--cyan:#78e6ff;--card:#140f33}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:#fff;font-family:"PS2P",ui-monospace,monospace;-webkit-text-size-adjust:100%}
+body{min-height:100vh;background:
+ radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 120px 80px,#cdf,transparent),
+ radial-gradient(2px 2px at 200px 150px,#fff,transparent),radial-gradient(1px 1px at 300px 40px,#fcf,transparent),
+ radial-gradient(1px 1px at 60px 200px,#fff,transparent),var(--bg);background-size:340px 240px;image-rendering:pixelated}
+.wrap{max-width:1100px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) 16px 40px}
+header{text-align:center;padding:18px 0 22px}
+h1{margin:0;font-size:clamp(22px,7.2vw,52px);line-height:1.25;color:var(--yel);text-shadow:4px 4px 0 var(--pink),8px 8px 0 #3a1a7a;letter-spacing:1px}
+.tag{margin:18px 0 0;font-size:clamp(10px,2.9vw,15px);color:var(--cyan);line-height:1.7}
+.blink{animation:b 1.1s steps(2) infinite;color:var(--yel)}@keyframes b{50%{opacity:0}}
+.grid{display:grid;gap:22px;grid-template-columns:1fr}
+@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{display:flex;flex-direction:column;background:var(--card);border:4px solid var(--pink);box-shadow:6px 6px 0 #3a1a7a;text-decoration:none;color:#fff;transition:transform .08s}
+.card:active{transform:translate(3px,3px);box-shadow:3px 3px 0 #3a1a7a}
+.card img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-bottom:4px solid var(--pink);background:#000}
+@media(max-width:699px){.card:not(.soon){flex-direction:row}.card img{width:42%;flex:none;align-self:flex-start;border-bottom:0;border-right:4px solid var(--pink)}
+.body{padding:10px 10px 12px;gap:8px}h2{font-size:12px}.desc{font-size:13px;line-height:1.35}.play{font-size:15px;padding:13px 0}.grid{gap:16px}}
+.body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.new{align-self:flex-start;font-size:9px;background:var(--yel);color:#000;padding:4px 6px}
+h2{margin:0;font-size:16px;line-height:1.4;color:var(--yel)}
+.desc{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:15px;line-height:1.45;color:#dcd8ff;flex:1}
+.note{font-size:9px;color:var(--cyan);line-height:1.5}
+.play{display:block;text-align:center;font-size:18px;padding:16px 0;background:var(--yel);color:#000;border:3px solid #000;box-shadow:inset -4px -4px 0 #c9a800}
+.card:hover .play{background:#fff}
+.soon{border-style:dashed;border-color:var(--cyan);justify-content:center;align-items:center;text-align:center;min-height:220px;padding:24px;box-shadow:none}
+.soon h2{color:var(--cyan)}
+footer{text-align:center;margin-top:34px;font-size:9px;line-height:1.8;color:#8f88c9}
+footer a{color:var(--cyan)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <h1>SPACE RIDERS<br>ARCADE</h1>
+ <p class="tag">Free browser games.<br>No wallet needed. <span class="blink">&#9654; Tap to play</span></p>
+</header>
+<main class="grid" id="games"></main>
+<footer>&copy; Space Riders &middot; More games dropping soon</footer>
+</div>
+<noscript><p style="text-align:center"><a href="star-squadron/" style="color:#ffe650">Star Squadron</a> &middot; <a href="supernova-showdown/" style="color:#ffe650">SuperNova Showdown</a> &middot; <a href="dream-strike/" style="color:#ffe650">Dream Strike</a> &middot; <a href="station-strike/" style="color:#ffe650">Station Strike</a></p></noscript>
+<script>
+// Add new games at the top of this list.
+const GAMES = [
+ {title:"Star Squadron", url:"https://sanyziahj.github.io/star-squadron/", img:"img/star-squadron.webp", isNew:true,
+  desc:"Star Fox-style space shooter. Rusty, CPT Buck Blue and Commander Kal barrel roll through meteors, Mars and deep space to take down 029.", touch:true},
+ {title:"SuperNova Showdown", url:"https://sanyziahj.github.io/supernova-showdown/", img:"img/supernova-showdown.webp",
+  desc:"Arcade beat 'em up. Pick Santt, Shadow, Draco or Ronin and brawl from the Space Rider Diner to the SuperNova club vs DeeJay and Spark.", touch:true},
+ {title:"Dream Strike", url:"https://sanyziahj.github.io/dream-strike/", img:"img/dream-strike.webp",
+  desc:"Run-and-gun through the Moon Colony, DreamLand Carnival and Fright's Castle. Drill Sergeant & Spike vs Oss, the Hammer Clown and Fright.", touch:true},
+ {title:"Station Strike", url:"https://sanyziahj.github.io/station-strike/", img:"img/station-strike.webp",
+  desc:"The original. Santt & ROS blast through 3 stages to stop the Overlord before he finishes UPLOADING.", touch:true}
+];
+const SOON = true;
+const el = document.getElementById("games");
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+el.innerHTML = GAMES.map((g,i) => `
+ <a class="card" href="${g.url}">
+  <img src="${g.img}" alt="${esc(g.title)} victory poster" width="600" height="800" ${i>1?'loading="lazy"':''} decoding="async">
+  <div class="body">
+   ${g.isNew?'<span class="new">NEW</span>':''}
+   <h2>${esc(g.title)}</h2>
+   <p class="desc">${esc(g.desc)}</p>
+   ${g.touch?'':'<span class="note">&#9000; Best on desktop / keyboard</span>'}
+   <span class="play">&#9654; PLAY</span>
+  </div>
+ </a>`).join("") + (SOON ? `
+ <div class="card soon"><h2>MORE COMING SOON</h2><p class="desc" style="flex:0;margin-top:12px">New Space Riders games drop here first.</p></div>` : "");
+</script>
+</body>
+</html>
