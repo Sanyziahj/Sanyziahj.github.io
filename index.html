@@ -83,7 +83,7 @@ const el = document.getElementById("games");
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 el.innerHTML = GAMES.map((g,i) => `
  <a class="card" href="${g.url}">
-  <img src="${g.img}" alt="${esc(g.title)} victory poster" width="600" height="800" ${i>1?'loading="lazy"':''} decoding="async">
+  <img src="${g.img}" alt="${esc(g.title)} victory poster" width="600" height="800" decoding="async">
   <div class="body">
    ${g.isNew?'<span class="new">NEW</span>':''}
    <h2>${esc(g.title)}</h2>
