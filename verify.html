@@ -24,7 +24,7 @@ p.note{font-size:13px;color:#a99cd8;line-height:1.5}a{color:#ffd76a}</style></he
 var SRC = (function () {
   var SALT = "SR-ARCADE:santt-space-station:lets-ride:v1";
   var B32 = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  var GAMES = { BRD: "ROS BOUNTY RUN: DAILY RIDER", HRV: "HUNTER RIDER: VOID ANOMALIES", CBD: "SPACE RIDERS: COSMIC BOARD", FTR: "SPACE RIDERS FIGHTER", SKQ: "SKIPPY'S QUEST", SSQ: "STAR SQUADRON", DST: "DREAM STRIKE", STS: "STATION STRIKE", SNS: "SUPERNOVA SHOWDOWN" };
+  var GAMES = { GSF: "SPACE SAGA OF FATE: GOLDEN VS SILVER FORCE", BRD: "ROS BOUNTY RUN: DAILY RIDER", HRV: "HUNTER RIDER: VOID ANOMALIES", CBD: "SPACE RIDERS: COSMIC BOARD", FTR: "SPACE RIDERS FIGHTER", SKQ: "SKIPPY'S QUEST", SSQ: "STAR SQUADRON", DST: "DREAM STRIKE", STS: "STATION STRIKE", SNS: "SUPERNOVA SHOWDOWN" };
   function normName(s) { s = String(s || "").toUpperCase().replace(/[^A-Z0-9 .\-]/g, "").replace(/\s+/g, " ").trim().slice(0, 12); return s || "RIDER"; }
   function norm(f) { return { game: String(f.game || "").toUpperCase().trim(), name: normName(f.name), date: String(f.date || "").trim(), time: String(f.time || "").trim(), serial: String(f.serial || "").toUpperCase().trim() }; }
   async function code(f) { f = norm(f); var s = [f.game, f.name, f.date, f.time, f.serial, SALT].join("|");
