@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verify a Victory Poster - Santt's Space Station Game Hub</title>
+<meta name="description" content="Check the serial number and code stamped on a Space Riders Arcade victory poster.">
+<style>@font-face{font-family:"PS2P";src:url(press-start-2p.woff) format("woff");font-display:swap}
+body{margin:0;background:#0b0618;color:#e9e3ff;font:15px system-ui,sans-serif;display:flex;justify-content:center}
+main{max-width:520px;width:100%;padding:24px 16px}h1{font:18px PS2P,monospace;color:#ffe650;line-height:1.5;text-align:center}
+label{display:block;margin:12px 0 4px;font:10px PS2P,monospace;color:#7ff4ff}input,select{width:100%;box-sizing:border-box;padding:10px;border-radius:8px;border:1px solid #6a4fc0;background:#160d2c;color:#fff;font:15px monospace;text-transform:uppercase}
+button{margin-top:18px;width:100%;padding:14px;border-radius:10px;border:2px solid #ffe650;background:#2a1650;color:#ffe650;font:12px PS2P,monospace;cursor:pointer}
+#res{margin-top:18px;padding:16px;border-radius:10px;text-align:center;font:16px PS2P,monospace;min-height:20px}.ok{background:#0f3a1c;color:#7dff9a;border:2px solid #7dff9a}.bad{background:#3a0f18;color:#ff7d9a;border:2px solid #ff7d9a}
+p.note{font-size:13px;color:#a99cd8;line-height:1.5}a{color:#ffd76a}</style></head><body><main>
+<h1>VERIFY A<br>VICTORY POSTER</h1>
+<p class="note">Type exactly what is stamped on the gold plaque at the bottom of the poster.</p>
+<form id="f"><label for="game">GAME</label><select id="game"></select>
+<label for="name">NAME</label><input id="name" maxlength="12" placeholder="RIDER" autocomplete="off">
+<label for="date">DATE</label><input id="date" placeholder="2026-11-03" autocomplete="off">
+<label for="time">SESSION TIME</label><input id="time" placeholder="12:34" autocomplete="off">
+<label for="serial">SERIAL</label><input id="serial" placeholder="SR-HRV-0001-AB" autocomplete="off">
+<label for="code">CODE</label><input id="code" maxlength="8" placeholder="8 CHARACTERS" autocomplete="off">
+<button type="submit">CHECK</button></form><div id="res" role="status" aria-live="polite"></div>
+<p class="note">A VALID result means these details match the code a real game stamped when it finished. The check runs in your browser, so it stops casual screenshot edits but is not tamper-proof.</p>
+<p class="note"><a href="./">&larr; Back to Santt's Space Station Game Hub</a></p>
+</main><script>
+// Shared by the in-game stamp and verify.html. Client-side only: deters casual fakes, not tamper-proof.
+var SRC = (function () {
+  var SALT = "SR-ARCADE:santt-space-station:lets-ride:v1";
+  var B32 = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  var GAMES = { HRV: "HUNTER RIDER: VOID ANOMALIES", CBD: "SPACE RIDERS: COSMIC BOARD", FTR: "SPACE RIDERS FIGHTER", SKQ: "SKIPPY'S QUEST", SSQ: "STAR SQUADRON", DST: "DREAM STRIKE", STS: "STATION STRIKE", SNS: "SUPERNOVA SHOWDOWN" };
+  function normName(s) { s = String(s || "").toUpperCase().replace(/[^A-Z0-9 .\-]/g, "").replace(/\s+/g, " ").trim().slice(0, 12); return s || "RIDER"; }
+  function norm(f) { return { game: String(f.game || "").toUpperCase().trim(), name: normName(f.name), date: String(f.date || "").trim(), time: String(f.time || "").trim(), serial: String(f.serial || "").toUpperCase().trim() }; }
+  async function code(f) { f = norm(f); var s = [f.game, f.name, f.date, f.time, f.serial, SALT].join("|");
+    var h = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s))); var o = "", v = 0, b = 0;
+    for (var i = 0; i < h.length && o.length < 8; i++) { v = ((v << 8) | h[i]) & 0xffff; b += 8; while (b >= 5 && o.length < 8) { o += B32[(v >> (b - 5)) & 31]; b -= 5; } } return o; }
+  function rnd(n) { var a = new Uint8Array(n); crypto.getRandomValues(a); var o = ""; for (var i = 0; i < n; i++) o += B32[a[i] & 31]; return o; }
+  return { SALT: SALT, B32: B32, GAMES: GAMES, normName: normName, norm: norm, code: code, rnd: rnd };
+})();
+
+var sel=document.getElementById("game");for(var k in SRC.GAMES){var o=document.createElement("option");o.value=k;o.textContent=SRC.GAMES[k];sel.appendChild(o);}
+var q=new URLSearchParams(location.search);["game","name","date","time","serial","code"].forEach(function(k){if(q.get(k))document.getElementById(k).value=q.get(k);});
+document.getElementById("serial").addEventListener("input",function(e){var m=/^SR-([A-Z]{3})-/i.exec(e.target.value);if(m&&SRC.GAMES[m[1].toUpperCase()])sel.value=m[1].toUpperCase();});
+document.getElementById("f").addEventListener("submit",async function(e){e.preventDefault();var v=function(k){return document.getElementById(k).value;};var r=document.getElementById("res");
+var f={game:v("game"),name:v("name"),date:v("date"),time:v("time"),serial:v("serial")};var want=(await SRC.code(f)).toUpperCase();var got=v("code").toUpperCase().replace(/\s/g,"");
+var serOk=new RegExp("^SR-"+f.game+"-\\d{4}-[A-Z2-9]{2}$").test(SRC.norm(f).serial);
+if(got===want&&serOk){r.className="ok";r.textContent="VALID \u2713";}else{r.className="bad";r.textContent="INVALID \u2717";}});
+</script></body></html>
