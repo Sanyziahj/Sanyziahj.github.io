@@ -54,6 +54,14 @@ h2{margin:0;font-size:16px;line-height:1.4;color:var(--yel)}
 .soon h2{color:var(--cyan)}
 footer{text-align:center;margin-top:34px;font-size:9px;line-height:1.8;color:#8f88c9}
 footer a{color:var(--cyan)}
+
+/* uniform cards */
+.card h2{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;height:4.2em}
+.card .desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:none;height:4.35em}
+.card .tags{min-height:17px}
+.card .play{margin-top:auto}
+.card:hover .play,.card:focus .play{box-shadow:0 0 14px var(--yel),inset -4px -4px 0 #c9a800}
+@media(max-width:699px){.card:not(.soon){height:auto}.card img{align-self:stretch;height:auto;aspect-ratio:3/4}.card .desc{-webkit-line-clamp:4;height:5.5em}.card h2{height:4.2em;font-size:11px}}
 </style>
 </head>
 <body>
@@ -70,27 +78,27 @@ footer a{color:var(--cyan)}
 // Add new games at the top of this list.
 const GAMES = [
  {title:"Space Riders Kart", url:"https://sanyziahj.github.io/space-riders-kart/", img:"img/space-riders-kart.webp", isNew:true,
-  desc:"Drift, boost and grab items as you race the Space Riders! Train with Drill Sergeant on the Moon, then clear Saturn's Rings, the Andromeda Casino Strip, the Space Station Loop and the Void Rift to unlock Draco, Eyereenia, Silas and Drill's tank. Pick your craft, win free-play races for new spacecraft and a hoverboard, and earn a numbered Certified Victor poster. Let's Ride!", touch:true},
- {title:"Space Riders: Space Saga of Fate - Golden Force vs Silver Force", url:"https://sanyziahj.github.io/space-saga-of-fate/", img:"img/space-saga-of-fate.webp", isNew:true,
-  desc:"Hark! Torratio tells the tale of Golden Force vs Silver Force. Surf the cosmos as Santt, ROS, Spike or Drill Sergeant, or ride with the Overlord, Fright, Spark or the Red King. Grab lasers, seeker rockets and the heavy blaster, unleash specials, and face bosses that transform for the real fight. Light and Regular modes, and a numbered Certified Victor poster. Let's Ride!", touch:true},
+  desc:"Drift, boost and blast items as you race from the Moon to the Void Rift.", touch:true},
+ {title:"Space Saga of Fate", url:"https://sanyziahj.github.io/space-saga-of-fate/", img:"img/space-saga-of-fate.webp", isNew:true,
+  desc:"Pick a side and surf the cosmos in an epic Golden vs Silver showdown.", touch:true},
  {title:"ROS Bounty Run: Daily Rider", url:"https://sanyziahj.github.io/ros-bounty-run/", img:"img/ros-bounty-run.webp", isNew:true,
-  desc:"A new bounty every day, the same for every rider. Pick Skippy, Jazz, Cavendish or the Hunter Rider, blast through 5 arena rooms, stack upgrades, call in Santt for a giant green laser blast, then face ROS himself. 3 tries a day, keep your streak alive, practice past bounties in the archive and claim a Certified Victor poster. Let's Ride!", touch:true},
+  desc:"A fresh bounty every day. Blast the arena, keep your streak, face ROS.", touch:true},
  {title:"Hunter Rider: Void Anomalies", url:"https://sanyziahj.github.io/hunter-rider/", img:"img/hunter-rider.webp", isNew:true,
-  desc:"Gothic 16-bit mystery platformer. Crack the case with an electric whip, a laser raygun and Icy's once-per-stage freeze. Climb stairs, swing on rings, gather clues and solve puzzles from the SR Space Diner to the Underworld. Pick who to follow, choose the Wizard's fate and take down three giant bosses. Let's Ride!", touch:true},
+  desc:"Gothic mystery platformer. Whip, blast and solve your way to the Underworld.", touch:true},
  {title:"Space Riders: Cosmic Board", url:"https://sanyziahj.github.io/space-riders-board/", img:"img/space-riders-board.webp", isNew:true,
-  desc:"Neon space hoverboard tricks on boards that really hover. Earn the Drill Sergeant's DS Cadet Deck at the Academy, then flip, grab and beam-grind across six stages up to the Hi-Life Bar blimp. Rise into the sky lane for extra rings, drones and hidden letters. Blast the Void, fire your Uber and collect L-E-T-S R-I-D-E. Let's Ride!", touch:true},
+  desc:"Flip, grab and beam-grind on neon hoverboards all the way up to the sky.", touch:true},
  {title:"Space Riders Fighter", url:"https://sanyziahj.github.io/space-riders-fighter/", img:"img/space-riders-fighter.webp", isNew:true,
-  desc:"16-bit versus fighter. Six buttons, raygun blasts, motion specials, supers, Training and Regular modes, and save and continue. Shadow, Ronin, Drill Sergeant, ROS, Eyereenia and Spark battle DeeJay and Cavendish for the Cosmic Championship. Then a secret challenger waits at the space dock. Let's Ride!", touch:true},
+  desc:"16-bit versus fighter. Raygun blasts, specials and supers for the Cosmic Championship.", touch:true},
  {title:"Skippy's Quest", url:"https://sanyziahj.github.io/skippys-quest/", img:"img/skippys-quest.webp", isNew:true, done:true,
-  desc:"16-bit action-adventure, all 9 chapters. Skippy rides from a boot-camp dream through the desert, the seaport, the casino, the Moon, a meteor shower, the DreamLand Carnival and the mirror Dark World to Fright's castle, gathering seven Star Shards to bring the Red King home.", touch:true},
+  desc:"Ride from the desert to Fright's Castle gathering Star Shards to bring the Red King home.", touch:true},
  {title:"Star Squadron", url:"https://sanyziahj.github.io/star-squadron/", img:"img/star-squadron.webp",
-  desc:"Star Fox-style space shooter. Rusty, CPT Buck Blue and Commander Kal barrel roll through meteors, Mars and deep space to take down 029.", touch:true},
+  desc:"Barrel roll through meteors, Mars and deep space in a classic space shooter.", touch:true},
  {title:"SuperNova Showdown", url:"https://sanyziahj.github.io/supernova-showdown/", img:"img/supernova-showdown.webp",
-  desc:"Arcade beat 'em up. Pick Santt, Shadow, Draco or Ronin and brawl from the Space Rider Diner to the SuperNova club vs DeeJay and Spark.", touch:true},
+  desc:"Arcade beat 'em up from the Space Rider Diner to the SuperNova club.", touch:true},
  {title:"Dream Strike", url:"https://sanyziahj.github.io/dream-strike/", img:"img/dream-strike.webp",
-  desc:"Run-and-gun through the Moon Colony, DreamLand Carnival and Fright's Castle. Drill Sergeant & Spike vs Oss, the Hammer Clown and Fright.", touch:true},
+  desc:"Run-and-gun through the Moon Colony, DreamLand Carnival and Fright's Castle.", touch:true},
  {title:"Station Strike", url:"https://sanyziahj.github.io/station-strike/", img:"img/station-strike.webp",
-  desc:"The original. Santt & ROS blast through 3 stages to stop the Overlord before he finishes UPLOADING.", touch:true}
+  desc:"The original. Blast through the Station to stop the Overlord before he finishes UPLOADING.", touch:true}
 ];
 const SOON = true;
 const el = document.getElementById("games");
@@ -99,10 +107,10 @@ el.innerHTML = GAMES.map((g,i) => `
  <a class="card" href="${g.url}">
   <img src="${g.img}" alt="${esc(g.title)} victory poster" width="600" height="800" decoding="async">
   <div class="body">
-   ${g.isNew||g.done?`<span class="tags">${g.isNew?'<span class="new">NEW</span>':''}${g.done?'<span class="new done">COMPLETE</span>':''}</span>`:''}
+   ${true?`<span class="tags">${g.isNew?'<span class="new">NEW</span>':''}${g.done?'<span class="new done">COMPLETE</span>':''}</span>`:''}
    <h2>${esc(g.title)}</h2>
    <p class="desc">${esc(g.desc)}</p>
-   ${g.touch?'':'<span class="note">&#9000; Best on desktop / keyboard</span>'}
+   
    <span class="play">&#9654; PLAY</span>
   </div>
  </a>`).join("") + (SOON ? `
