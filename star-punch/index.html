@@ -144,4 +144,92 @@ function tutorialEvent(type,e){if(!g||g.lessonNext)return;let n=g.tutorialStep;l
 // QA access is available only on an explicitly test-marked URL.
 if(new URLSearchParams(location.search).has('test'))window.__test={start:startFight,practice:startPractice,tutorialIntro,trainingIntro,act,get:()=>({mode,save:JSON.parse(JSON.stringify(save)),...g,events,frames:frameTimes}),tell:(m)=>{g.queue=[];beginTell(m)},step:(dt)=>{update(dt);draw()},prepareCounter:()=>{g.state='tell';g.move='L';g.timer=.04;g.openingHits=0;g.jabCD=0},beat:()=>{g.ehp=1;g.opening=g.t+1;g.openingHits=0;g.jabCD=0;act('jabL');update(2)},credits,reset:()=>{save={wins:[],unlocked:false,creditsPending:false,santt:false};persist();title()},set:v=>Object.assign(g,v),framesReset:()=>{frameTimes=[]},pause,resume,draw,roster:roster.map(o=>({name:o.name,signature:o.signature})),title};
 document.title=TITLE;document.querySelector('meta[property="og:title"]').content=TITLE;makeCoachPortrait();title();requestAnimationFrame(loop);
-</script></body></html>
+</script><style id="sp-phone">
+#hud{grid-template-columns:1fr 130px 1fr 56px}
+#controls button.sp-pause,.sp-pause{min-height:44px;height:44px;min-width:48px;width:52px;padding:0;justify-self:end;align-self:center;font-size:15px;font-weight:900;letter-spacing:.08em;background:#0f1726;border:1px solid #ffffff38;border-radius:10px;box-shadow:none;touch-action:none;user-select:none;-webkit-user-select:none}
+.sp-pause.pressed{background:#2a3d50}
+#controls{grid-template-columns:3fr 4.4fr;gap:16px}
+.sp-grp{display:grid;gap:9px;min-width:0;min-height:0;opacity:var(--sp-op,1)}
+.sp-def{grid-template-columns:repeat(3,1fr)}
+.sp-off{grid-template-columns:1fr 1fr 1fr 1.4fr}
+#controls .sp-grp button{min-height:44px;white-space:nowrap;letter-spacing:.02em}
+#controls button.star{font-size:14px;border-color:#ffcf67aa;box-shadow:inset 0 -4px 0 #0004,0 0 14px #ffcf6733}
+body.sp-lh #controls{grid-template-columns:4.4fr 3fr}
+body.sp-lh .sp-def{order:2}
+#highTouch{min-height:44px;padding:8px 12px;font-size:11px}
+@media (hover:none) and (pointer:coarse){#controls small{display:none!important}#controls button{font-size:13px!important}}
+@media(max-width:700px) and (min-height:501px){
+ #fight{grid-template-rows:69px minmax(0,1fr) 58px calc(150px * var(--sp-k,1))}
+ #hud{grid-template-columns:1fr 72px 1fr 44px;gap:7px}
+ #hud .sp-pause{width:44px;min-width:44px}
+ #controls{grid-template-columns:.9fr 1.1fr;grid-template-rows:1fr;gap:12px;padding:4px 2px}
+ body.sp-lh #controls{grid-template-columns:1.1fr .9fr}
+ .sp-def{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}
+ .sp-def [data-action=duck]{grid-column:1/-1}
+ .sp-off{grid-template-columns:repeat(6,1fr);grid-template-rows:1fr 1fr;gap:8px}
+ .sp-off [data-action=jabL]{grid-column:1/4}.sp-off [data-action=jabR]{grid-column:4/7}
+ .sp-off [data-action=block]{grid-column:1/3}.sp-off [data-action=star]{grid-column:3/7}
+}
+@media(max-height:500px) and (min-width:650px){
+ #fight{--spl:calc(150px * var(--sp-k,1));--spr:calc(170px * var(--sp-k,1));grid-template-columns:var(--spl) minmax(0,1fr) var(--spr);grid-template-rows:58px minmax(0,1fr) 40px}
+ body.sp-lh #fight{grid-template-columns:var(--spr) minmax(0,1fr) var(--spl)}
+ #hud{grid-column:1/-1;grid-row:1;grid-template-columns:1fr 120px 1fr 52px;padding:3px 12px}
+ #arena{grid-column:2;grid-row:2}
+ #coach{grid-column:2;grid-row:3}
+ #controls{display:contents}
+ .sp-grp{grid-row:2/4;align-content:end;gap:7px;padding-bottom:2px}
+ .sp-def{grid-column:1;grid-template-columns:1fr 1fr;grid-template-rows:calc(72px * var(--sp-k,1)) calc(62px * var(--sp-k,1))}
+ .sp-def [data-action=duck]{grid-column:1/-1}
+ .sp-off{grid-column:3;grid-template-columns:1fr 1fr;grid-template-rows:calc(62px * var(--sp-k,1)) calc(80px * var(--sp-k,1)) calc(50px * var(--sp-k,1))}
+ .sp-off [data-action=star]{grid-column:1/-1;grid-row:2}.sp-off [data-action=block]{grid-column:1/-1;grid-row:3}
+ body.sp-lh .sp-def{grid-column:3}body.sp-lh .sp-off{grid-column:1}
+ #controls .sp-grp button{padding:4px 3px;font-size:12px}
+ #hud .mid{line-height:1.05}#hud .mid #stars{font-size:13px;line-height:1.1}#hud .mid small{font-size:9px}
+}
+@media(max-height:500px) and (min-width:650px) and (max-width:760px){
+ #fight{--spl:calc(134px * var(--sp-k,1));--spr:calc(140px * var(--sp-k,1))}
+ #controls .sp-grp button{font-size:11px!important;letter-spacing:0}
+}
+.sp-set button{min-width:92px}
+</style>
+<script>
+(function(){
+'use strict';
+var K='sr-controls-v1',C={size:1,op:1,lh:false,vib:true};
+try{Object.assign(C,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){}
+var nav=document.getElementById('controls'),hud=document.getElementById('hud');
+if(!nav||!hud)return;
+var q=function(a){return nav.querySelector('[data-action="'+a+'"]')};
+var def=document.createElement('div'),off=document.createElement('div');
+def.className='sp-grp sp-def';def.setAttribute('aria-label','Defense');
+off.className='sp-grp sp-off';off.setAttribute('aria-label','Punches');
+['left','right','duck'].forEach(function(a){var b=q(a);if(b)def.appendChild(b)});
+['jabL','jabR','block','star'].forEach(function(a){var b=q(a);if(b)off.appendChild(b)});
+var pz=q('pause');
+nav.appendChild(def);nav.appendChild(off);
+if(pz){pz.classList.add('sp-pause');pz.textContent='II';pz.setAttribute('aria-label','Pause');pz.title='Pause (Enter / Esc)';hud.appendChild(pz)}
+function save(){try{localStorage.setItem(K,JSON.stringify(C))}catch(e){}}
+function apply(){var r=document.documentElement.style;r.setProperty('--sp-k',String(C.size));r.setProperty('--sp-op',String(C.op));document.body.classList.toggle('sp-lh',!!C.lh)}
+apply();
+function buzz(ms){if(!C.vib)return;try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
+var VIB={damage:40,enemyDamage:12,starUsed:60,starEarned:25,down:90};
+if(typeof window.emit==='function'){var oe=window.emit;window.emit=function(t){if(VIB[t])buzz(VIB[t]);return oe.apply(this,arguments)}}
+var SZ=[[.85,'SMALL'],[1,'MEDIUM'],[1.15,'LARGE']],OP=[[1,'100%'],[.8,'80%'],[.6,'60%']];
+function lab(list,v){for(var i=0;i<list.length;i++)if(Math.abs(list[i][0]-v)<.01)return list[i][1];return list[1][1]}
+function next(list,v){for(var i=0;i<list.length;i++)if(Math.abs(list[i][0]-v)<.01)return list[(i+1)%list.length][0];return list[0][0]}
+function rows(){return '<div class="setting sp-set"><div>Control size<p>Fight buttons on phones.</p></div><button id="sp-size">'+lab(SZ,C.size)+'</button></div>'+
+'<div class="setting sp-set"><div>Control opacity<p>See more of the ring.</p></div><button id="sp-op">'+lab(OP,C.op)+'</button></div>'+
+'<div class="setting sp-set"><div>Hands<p>LEFT puts punches on the left thumb.</p></div><button id="sp-lh">'+(C.lh?'LEFT':'RIGHT')+'</button></div>'+
+'<div class="setting sp-set"><div>Vibration<p>Short buzz on hits, where supported.</p></div><button id="sp-vib">'+(C.vib?'ON':'OFF')+'</button></div>'}
+function inject(){var m=document.getElementById('modal');if(!m)return;var mu=m.querySelector('#mute');if(!mu||m.querySelector('#sp-size'))return;
+ var all=m.querySelectorAll('.setting'),last=all[all.length-1];if(!last)return;last.insertAdjacentHTML('afterend',rows());
+ var on=function(id,fn){var b=m.querySelector('#'+id);b.onclick=function(){fn(b);save();apply()}};
+ on('sp-size',function(b){C.size=next(SZ,C.size);b.textContent=lab(SZ,C.size)});
+ on('sp-op',function(b){C.op=next(OP,C.op);b.textContent=lab(OP,C.op)});
+ on('sp-lh',function(b){C.lh=!C.lh;b.textContent=C.lh?'LEFT':'RIGHT'});
+ on('sp-vib',function(b){C.vib=!C.vib;b.textContent=C.vib?'ON':'OFF';if(C.vib)buzz(25)})}
+var md=document.getElementById('modal');if(md)new MutationObserver(inject).observe(md,{childList:true});
+window.__SPC={C:C,apply:apply};
+})();
+</script>
+</body></html>
